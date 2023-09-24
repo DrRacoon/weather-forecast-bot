@@ -197,7 +197,7 @@ func CreateForecast(Forecasts ForecastResponse) string {
 		weather[j].Wind = append(weather[j].Wind, forecast.Wind.Speed)
 		weather[j].Pop = append(weather[j].Pop, forecast.Pop)
 	}
-	fmt.Println(weather)
+
 	var DaysWeather []DayWeather
 	for _, day := range weather {
 		DaysWeather = append(DaysWeather, struct {
@@ -210,7 +210,7 @@ func CreateForecast(Forecasts ForecastResponse) string {
 			Pop      float64
 		}{Dt: day.Dt, TempMin: slices.Min(day.Temp), TempMax: slices.Max(day.Temp), Pressure: Average(day.Pressure) / PascalsToHgmm, Humidity: Average(day.Humidity), Wind: Average(day.Wind), Pop: Average(day.Pop)})
 	}
-	fmt.Println(DaysWeather)
+
 	return CreateMessage(DaysWeather, Forecasts)
 }
 func CreateMessage(DaysWeather []DayWeather, Forecast ForecastResponse) string {
